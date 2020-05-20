@@ -54,12 +54,22 @@ public class Clinica {
 
     }
 
+    public static class ExisteEnfermeroException extends ClinicaException {
+
+        public ExisteEnfermeroException(String msg) {
+            super(msg);
+        }
+
+    }
+
     /* ---------------------------------------------------- */
     private ArrayList<Paciente> pacientes;
 
     private ArrayList<Medico> medicos;
 
     private ArrayList<CitaMedica> citas;
+
+    private ArrayList<Enfermero> enfermeros;
 
     private String nombreClinica;
 
@@ -72,11 +82,12 @@ public class Clinica {
      * @param maxCitas el num. max. de citas, como entero.
      */
     public Clinica(String nombre, int maxPacientes, int maxMedicos,
-            int maxCitas) {
+                   int maxCitas, int maxEnfermeros) {
         this.nombreClinica = nombre;
         pacientes = new ArrayList<>(maxPacientes);
         medicos = new ArrayList<>(maxMedicos);
         citas = new ArrayList<>(maxCitas);
+        enfermeros = new ArrayList<>(maxEnfermeros);
     }
 
     /* ------------------------------------------------------------------ */
@@ -231,8 +242,8 @@ public class Clinica {
 
         return medicos.get(pos);
     }
-    
-     /**
+
+    /**
      * Devuelve el Medico con el numero de colegiado
      *
      * @param numColeg el numero de colegiado del medico
@@ -281,7 +292,7 @@ public class Clinica {
     /**
      * Inserta un nuevo medico
      *
-     * @param p el nuevo objeto Medico
+     * @param m el nuevo objeto Medico
      */
     public void insertaMedico(Medico m)
             throws ExisteMedicoException {
@@ -412,6 +423,136 @@ public class Clinica {
 
         return toret.toString();
     }
+
+
+    /* ------------------------------------------------------------------ */
+    /**
+     * METODOS RELACIONADOS CON EL VECTOR ENFERMEROS *
+     */
+    /**
+     * Devuelve el Enfermero situado en pos
+     *
+     * @param pos el lugar del enfermero en el vector de medicos
+     * @return el objeto Enfermero correspondiente.
+     */
+    public Enfermero getEnfermero(int pos) throws PosicionInexistenteClinicaException {
+        if (pos >= getNumEnfermeros() || pos < 0) {
+            throw new PosicionInexistenteClinicaException("getEnfermero(): "
+                    + "no existe ningun enfermero en esa posicion: "
+                    + (pos + 1) + " / " + getNumEnfermeros());
+        }
+
+        return enfermeros.get(pos);
+    }
+
+    /**
+     * Devuelve el Enfermero con el numero de colegiado
+     *
+     * @param numIdentificacion el numero de colegiado del enfermero
+     * @return el objeto Medico correspondiente.
+     */
+    public Enfermero getEnfermero(String numIdentificacion)
+            throws ExisteEnfermeroException {
+
+        int indice = 0;
+
+        while ((indice < getNumEnfermeros())
+                && (!enfermeros.get(indice).getNumIdentificacion().equals(numIdentificacion))) {
+            indice++;
+        }
+        if (indice == getNumEnfermeros()) {
+            throw new ExisteEnfermeroException("getEnfermero(): "
+                    + "no existe ningun enfermero con ese numero de identificacion"
+                    + numIdentificacion);
+        }
+
+        return enfermeros.get(indice);
+    }
+
+
+    public Enfermero existeEnfermero(String numIdentificacion, Enfermero e) {
+        int i = 0;
+        while ((i < getNumEnfermeros())
+                && (!(enfermeros.get(i).getNumIdentificacion().equals(numIdentificacion)))) {
+            i++;
+        }
+        if (i == getNumEnfermeros()) {
+            return e;
+        } else {
+            return enfermeros.get(i);
+        }
+    }
+
+    /**
+     * Devuelve el num. de enfermeros creados.
+     *
+     * @return el num. de enfermeros existentes, como entero.
+     */
+    public int getNumEnfermeros() {
+        return enfermeros.size();
+    }
+
+    /**
+     * Inserta un nuevo enfermero
+     *
+     * @param e el nuevo objeto Enfermero
+     */
+    public void insertaEnfermero(Enfermero e)
+            throws ExisteMedicoException {
+
+        if (existeNumIdentificacion(e.getNumIdentificacion())) {
+            throw new ExisteMedicoException("insertaEnfermero(): existe un "
+                    + "enfermero con ese numero de colegiado: " + e.getNumIdentificacion());
+        }
+        enfermeros.add(e);
+    }
+
+    public boolean existeNumIdentificacion(String numIdentificacion) {
+        int i = 0;
+
+        while ((i < getNumEnfermeros())
+                && (!enfermeros.get(i).getNumIdentificacion().equals(numIdentificacion))) {
+            i++;
+        }
+        return (i != getNumEnfermeros());
+    }
+
+    /**
+     * Elimina el medico situado en la posicion indicada.
+     *
+     * @param pos el lugar del medico en el vector de medicos
+     */
+    public void eliminaEnfermero(int pos)
+            throws PosicionInexistenteClinicaException {
+        if ((pos >= getNumEnfermeros()) || (pos < 0)) {
+            throw new PosicionInexistenteClinicaException("eliminaEnfermero(): "
+                    + "no existe ningun enfermero en esa posicion: "
+                    + (pos + 1) + " / " + getNumEnfermeros());
+        }
+
+        medicos.remove(pos);
+    }
+
+    public String toStringEnfermeros() {
+        StringBuilder toret;
+        final int numEnfermeros = getNumEnfermeros();
+
+        toret = new StringBuilder();
+        if (numEnfermeros > 0) {
+            toret.append("Los enfermeros de la clinica son: \n");
+            for (int i = 0; i < numEnfermeros; i++) {
+                toret.append((i + 1)).append(". ");
+                toret.append(enfermeros.get(i).toString()).append("\n");
+            }
+        } else {
+            toret.append("No hay enfermeros.");
+        }
+
+        return toret.toString();
+    }
+
+
+    /* ------------------------------------------------------------------ */
 
 
     /* METODOS PRIVADOS */

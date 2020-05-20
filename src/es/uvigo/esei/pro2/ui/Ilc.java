@@ -1,14 +1,8 @@
 package es.uvigo.esei.pro2.ui;
 
-import es.uvigo.esei.pro2.core.Asegurado;
-import es.uvigo.esei.pro2.core.CitaMedica;
-import es.uvigo.esei.pro2.core.Clinica;
-import es.uvigo.esei.pro2.core.Fecha;
-import es.uvigo.esei.pro2.core.Hora;
-import es.uvigo.esei.pro2.core.Medico;
-import es.uvigo.esei.pro2.core.Paciente;
-import es.uvigo.esei.pro2.core.Persona;
-import es.uvigo.esei.pro2.core.Privado;
+import es.uvigo.esei.pro2.core.*;
+
+import java.awt.geom.Area;
 import java.util.List;
 
 import java.util.Scanner;
@@ -60,6 +54,9 @@ public class Ilc {
                         gestionMedicos(coleccion);
                         break;
                     case 3:
+                        gestionEnfermeros(coleccion);
+                        break;
+                    case 4:
                         gestionCitas(coleccion);
                         break;
                 }
@@ -142,6 +139,38 @@ public class Ilc {
     }
 
     /**
+     * Muestra las distintas opciones para gestionar los enfermeros y lanza los
+     * métodos que realiza cada operación
+     *
+     * @param coleccion La clinica sobre la que actua
+     */
+    private void gestionEnfermeros(Clinica coleccion) throws Exception {
+        int opcionSec = 0;
+
+        do {
+            try {
+                opcionSec = menuGestionMedicos();
+                switch (opcionSec) {
+                    case 1:
+                        insertaEnfermero(coleccion);
+                        break;
+                    case 2:
+                        modificaEnfermero(coleccion);
+                        break;
+                    case 3:
+                        eliminaEnfermero(coleccion);
+                        break;
+                    case 4:
+                        System.out.println(coleccion.toStringEnfermeros());
+                        break;
+                }
+            } catch (Clinica.ClinicaException e) {
+                System.err.println("\nERROR: " + e.getMessage());
+            }
+        } while (opcionSec != 5);
+    }
+
+    /**
      * Muestra las distintas opciones para gestionar las citas médicas y lanza
      * los métodos que realiza cada operación
      *
@@ -187,11 +216,12 @@ public class Ilc {
             System.out.println("\n\tMENU GESTIÓN CLÍNICA HOSPITALARIA\n"
                     + "\n1. Gestión Pacientes "
                     + "\n2. Gestión Médicos "
-                    + "\n3. Gestión Citas Médicas"
-                    + "\n4. Salir\n");
+                    + "\n3. Gestión Enfermeros <Examen>"
+                    + "\n4. Gestión Citas Médicas"
+                    + "\n5. Salir\n");
             toret = leeNum("Selecciona: ");
         } while (toret < 1
-                || toret > 4);
+                || toret > 5);
 
         System.out.println();
         return toret;
@@ -237,6 +267,31 @@ public class Ilc {
                     + "2. Modifica un médico\n"
                     + "3. Elimina un médico\n"
                     + "4. Lista médicos\n"
+                    + "5. Vuelve al menú principal\n");
+            toret = leeNum("Selecciona: ");
+        } while (toret < 1
+                || toret > 5);
+
+        System.out.println();
+        return toret;
+    }
+
+    /**
+     * Presenta un menu con las opciones para gestionar enfermeros y permite
+     * seleccionar una.
+     *
+     * @return la opcion seleccionada, como entero
+     */
+    private int menuGestionEnfermeros() {
+        int toret;
+
+        do {
+            System.out.println("\n\tGESTIÓN ENFERMEROS: "
+                    + "\n1. Inserta un nuevo enfermero\n"
+                    + "2. Modifica un enfermero\n"
+                    + "3. Elimina un enfermero\n"
+                    + "4. Lista enfermeros\n"
+                    + "4. Lista enfermeros por área <Ej. 4>\n"
                     + "5. Vuelve al menú principal\n");
             toret = leeNum("Selecciona: ");
         } while (toret < 1
@@ -431,7 +486,7 @@ public class Ilc {
     /**
      * Modifica los datos propios de un paciente asegurado por una compañia.
      *
-     * @param p El paciente a modificar.
+     * @param a El asegurado a modificar.
      */
     private void modificaAsegurado(Asegurado a) {
         String info;
@@ -463,8 +518,9 @@ public class Ilc {
     }
 
     /**
-     * Modifica los datos de una fecha (puede ser fecha nacimiento del paciente
-     * o la fecha de la cita medica.
+     * Modifica los datos de una fecha (puede ser fecha nacimiento del paciente,
+     * la fecha de la cita medica
+     * o la fecha de incorporacion de un enfermero.
      *
      * @param f Fecha a modificar.
      */
@@ -541,7 +597,7 @@ public class Ilc {
     }
 
     /* ------------------------------------------------------------------ */
- /* OPCIONES DEL MENÚ GESTIÓN MEDICOS */
+    /* OPCIONES DEL MENÚ GESTIÓN MEDICOS */
     /**
      * Crea un nuevo médico y lo inserta en la coleccion
      *
@@ -572,7 +628,7 @@ public class Ilc {
     /**
      * Obtiene los datos de un medico.
      *
-     * @param p El medico a modificar.
+     * @param m El medico a modificar.
      */
     private void modificaMedico(Medico m, Clinica coleccion)
             throws Clinica.ExisteMedicoException {
@@ -610,6 +666,98 @@ public class Ilc {
             coleccion.eliminaMedico(leePosMedico(coleccion));
         } else {
             System.out.println("La coleccion no contiene médicos.");
+        }
+    }
+
+
+    /* ------------------------------------------------------------------ */
+    /* OPCIONES DEL MENÚ GESTIÓN ENFERMEROS */
+    /**
+     * Crea un nuevo enfermero y lo inserta en la coleccion
+     *
+     * @param coleccion La coleccion en la que se inserta el enfermero.
+     */
+    private void insertaEnfermero(Clinica coleccion) throws Clinica.ClinicaException {
+
+        Enfermero e = new Enfermero("","","",new Fecha(0,0,0), Enfermero.AreasMedicas.PEDIATRIA);
+
+        modificaEnfermero(e, coleccion);
+        coleccion.insertaEnfermero(e);
+    }
+
+    /**
+     * Modifica un enfermero existente.
+     *
+     * @param coleccion La coleccion de la cual modificar un enfermero.
+     */
+    private void modificaEnfermero(Clinica coleccion)
+            throws Clinica.ClinicaException {
+        if (coleccion.getNumMedicos() > 0) {
+            this.modificaEnfermero(coleccion.getEnfermero(leePosEnfermero(coleccion)), coleccion);
+        } else {
+            System.out.println("La coleccion no contiene medicos.");
+        }
+    }
+
+    /**
+     * Obtiene los datos de un enfermero.
+     *
+     * @param e El enfermero a modificar.
+     */
+    private void modificaEnfermero(Enfermero e, Clinica coleccion)
+            throws Clinica.ExisteMedicoException {
+        String info;
+        Scanner teclado = new Scanner(System.in);
+
+        modificaPersona(e);
+
+        // Número de identificacion
+        System.out.print("Número de identificacion ");
+        if (e.getNumIdentificacion().length() > 0) {
+            System.out.print("[" + e.getNumIdentificacion() + "]");
+        }
+        System.out.print(": ");
+        info = teclado.nextLine().trim();
+
+        if ((info.length() != 0) && (coleccion.existeNumeroColegiado(info))) {
+            throw new Clinica.ExisteMedicoException("Existe un enfermero"
+                    + " con ese mismo numero de identificacion: " + info);
+        }
+
+        if (info.length() > 0) {
+            e.setNumIdentificacion(info);
+        }
+
+        // Fecha de incorporacion
+        modificaFecha(e.getFechaIncorporacion());
+
+        // Area medica
+        System.out.println("Area actual: " + e.getAreaMedica().name());
+        System.out.println("Opciones para areas medicas: ");
+        for (int i = 0; i < Enfermero.AreasMedicas.values().length; i++) {
+            System.out.println((i+1) + ". " + Enfermero.AreasMedicas.values()[i].name() + '\n');
+        }
+
+        int temp;
+        do {
+            temp = leeNum("Selecciona: ");
+        } while (temp < 1
+                || temp > Enfermero.AreasMedicas.values().length);
+
+        e.setAreaMedica(Enfermero.AreasMedicas.values()[temp-1]);
+    }
+
+    /**
+     * Borra un enfermero por su posicion en la colección.
+     *
+     * @param coleccion La coleccion en la que se elimina el enfermero
+     */
+    private void eliminaEnfermero(Clinica coleccion)
+            throws Clinica.ClinicaException {
+        if (coleccion.getNumEnfermeros() > 0) {
+            coleccion.eliminaEnfermero(leePosEnfermero(coleccion));
+        } else {
+            System.out.println("La coleccion no contiene enfermeros.");
         }
     }
 
@@ -713,15 +861,17 @@ public class Ilc {
         String nombre;
         int maxPac;
         int maxMed;
+        int maxEnfermeros;
         int maxCitas;
 
         nombre = leeCadena("Introduce el nombre de la clinica: ");
 
         maxPac = leeNum("Introduce el numero máximo de pacientes: ");
         maxMed = leeNum("Introduce el numero máximo de medicos: ");
+        maxEnfermeros = leeNum("Introduce el numero máximo de enfermeros: ");
         maxCitas = leeNum("Introduce el numero máximo de citas médicas: ");
 
-        return new Clinica(nombre, maxPac, maxMed, maxCitas);
+        return new Clinica(nombre, maxPac, maxMed, maxCitas, maxEnfermeros);
     }
 
     /**
@@ -757,6 +907,25 @@ public class Ilc {
                     + numMedicos + "): ");
         } while (toret < 1
                 || toret > numMedicos);
+
+        return toret - 1;
+    }
+
+    /**
+     * Lee del teclado la posición de un enfermero en la colección
+     *
+     * @param coleccion La colección de la que se obtiene el max.
+     * @return la posición del enfermero, como entero.
+     */
+    private int leePosEnfermero(Clinica coleccion) {
+        final int numEnfermeros = coleccion.getNumEnfermeros();
+        int toret;
+
+        do {
+            toret = leeNum("Introduzca posición del enfermero (1..."
+                    + numEnfermeros + "): ");
+        } while (toret < 1
+                || toret > numEnfermeros);
 
         return toret - 1;
     }
