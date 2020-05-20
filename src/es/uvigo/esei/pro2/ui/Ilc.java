@@ -149,7 +149,7 @@ public class Ilc {
 
         do {
             try {
-                opcionSec = menuGestionMedicos();
+                opcionSec = menuGestionEnfermeros();
                 switch (opcionSec) {
                     case 1:
                         insertaEnfermero(coleccion);
@@ -162,6 +162,9 @@ public class Ilc {
                         break;
                     case 4:
                         System.out.println(coleccion.toStringEnfermeros());
+                        break;
+                    case 5:
+                        System.out.println("No realizado");
                         break;
                 }
             } catch (Clinica.ClinicaException e) {
@@ -291,11 +294,11 @@ public class Ilc {
                     + "2. Modifica un enfermero\n"
                     + "3. Elimina un enfermero\n"
                     + "4. Lista enfermeros\n"
-                    + "4. Lista enfermeros por área <Ej. 4>\n"
-                    + "5. Vuelve al menú principal\n");
+                    + "5. Lista enfermeros por área <Ej. 4>\n"
+                    + "6. Vuelve al menú principal\n");
             toret = leeNum("Selecciona: ");
         } while (toret < 1
-                || toret > 5);
+                || toret > 6);
 
         System.out.println();
         return toret;

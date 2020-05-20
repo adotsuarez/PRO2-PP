@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bfe810ff-4c5a-4a7b-9391-db9be02595c7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/GestClinica.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PRO2-PP.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/es/uvigo/esei/pro2/core/Enfermero.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/es/uvigo/esei/pro2/core/Clinica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/es/uvigo/esei/pro2/core/Clinica.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/es/uvigo/esei/pro2/ui/Ilc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/es/uvigo/esei/pro2/ui/Ilc.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/es/uvigo/esei/pro2/ui/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/es/uvigo/esei/pro2/ui/Main.java" afterDir="false" />
@@ -58,12 +53,24 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1589969018011</updated>
-      <workItem from="1589969026288" duration="4170000" />
+      <workItem from="1589969026288" duration="4741000" />
     </task>
+    <task id="LOCAL-00001" summary="Ej. 1 al 3">
+      <created>1589973267954</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1589973267954</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Ej. 1 al 3" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ej. 1 al 3" />
   </component>
   <component name="WindowStateProjectService">
     <state x="-1148" y="-522" key="#com.intellij.ide.util.MemberChooser" timestamp="1589969531578">
@@ -74,6 +81,14 @@
       <screen x="-1920" y="-784" width="1920" height="1080" />
     </state>
     <state x="-1223" y="-491" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.1280.800/-1920.-784.1920.1080@-1920.-784.1920.1080" timestamp="1589970390145" />
+    <state x="-1350" y="-643" key="CommitChangelistDialog2" timestamp="1589973267577">
+      <screen x="-1920" y="-784" width="1920" height="1080" />
+    </state>
+    <state x="-1350" y="-643" key="CommitChangelistDialog2/0.0.1280.800/-1920.-784.1920.1080@-1920.-784.1920.1080" timestamp="1589973267577" />
+    <state x="-1361" y="-505" key="Vcs.Push.Dialog.v2" timestamp="1589973270159">
+      <screen x="-1920" y="-784" width="1920" height="1080" />
+    </state>
+    <state x="-1361" y="-505" key="Vcs.Push.Dialog.v2/0.0.1280.800/-1920.-784.1920.1080@-1920.-784.1920.1080" timestamp="1589973270159" />
     <state x="-1269" y="-413" key="com.intellij.ide.util.TipDialog" timestamp="1589969025148">
       <screen x="-1920" y="-784" width="1920" height="1080" />
     </state>

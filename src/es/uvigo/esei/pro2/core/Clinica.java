@@ -4,6 +4,7 @@
 package es.uvigo.esei.pro2.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -532,6 +533,13 @@ public class Clinica {
 
         medicos.remove(pos);
     }
+
+    /*
+    public HashMap gestionEnf() {
+
+
+    }
+     */
 
     public String toStringEnfermeros() {
         StringBuilder toret;

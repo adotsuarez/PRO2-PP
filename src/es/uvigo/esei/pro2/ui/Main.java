@@ -26,6 +26,8 @@ public class Main {
             4. Añade otra opción al menú “GESTIÓN ENFERMEROS” que liste para cada posible área médica, el nombre de
             todos los enfermeros que tienen asignada dicha área. Tienes que usar para ello un HashMap.
 
+            5. Se deben de controlar todos los errores que se puedan producir mediante excepciones personalizadas.
+
         ------------------------------------------------------
 
         !! Puedes consultar las modificaciones en GitHub:
