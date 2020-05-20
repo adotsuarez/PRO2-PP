@@ -695,10 +695,10 @@ public class Ilc {
      */
     private void modificaEnfermero(Clinica coleccion)
             throws Clinica.ClinicaException {
-        if (coleccion.getNumMedicos() > 0) {
+        if (coleccion.getNumEnfermeros() > 0) {
             this.modificaEnfermero(coleccion.getEnfermero(leePosEnfermero(coleccion)), coleccion);
         } else {
-            System.out.println("La coleccion no contiene medicos.");
+            System.out.println("La coleccion no contiene enfermeros.");
         }
     }
 
