@@ -708,7 +708,7 @@ public class Ilc {
      * @param e El enfermero a modificar.
      */
     private void modificaEnfermero(Enfermero e, Clinica coleccion)
-            throws Clinica.ExisteMedicoException {
+            throws Clinica.ExisteEnfermeroException {
         String info;
         Scanner teclado = new Scanner(System.in);
 
@@ -722,8 +722,8 @@ public class Ilc {
         System.out.print(": ");
         info = teclado.nextLine().trim();
 
-        if ((info.length() != 0) && (coleccion.existeNumeroColegiado(info))) {
-            throw new Clinica.ExisteMedicoException("Existe un enfermero"
+        if ((info.length() != 0) && (coleccion.existeNumIdentificacion(info))) {
+            throw new Clinica.ExisteEnfermeroException("Existe un enfermero"
                     + " con ese mismo numero de identificacion: " + info);
         }
 
